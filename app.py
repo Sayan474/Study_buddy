@@ -25,6 +25,21 @@ users_collection = db["app_users"]
 
 app = FastAPI()
 
+
+def get_allowed_origins() -> list[str]:
+    configured = os.getenv("CORS_ORIGINS", "")
+    env_origins = [origin.strip() for origin in configured.split(",") if origin.strip()]
+    default_origins = [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:4173",
+        "http://127.0.0.1:4173",
+    ]
+    # Keep order stable while removing duplicates.
+    return list(dict.fromkeys(default_origins + env_origins))
+
 class ChatRequest(BaseModel):
     user_id: str
     question: str
@@ -42,7 +57,7 @@ class LoginRequest(BaseModel):
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=get_allowed_origins(),
     allow_methods=["*"],
     allow_headers=["*"],
     allow_credentials=True
