@@ -1,4 +1,4 @@
-# Study_bot
+# StudyBuddy
 
 AI Study Assistant with FastAPI backend + MongoDB persistence + React frontend.
 
@@ -78,7 +78,7 @@ Frontend runs on `http://127.0.0.1:5173` by default.
 ## Project Structure
 
 ```text
-Study_bot/
+StudyBuddy/
 	app.py
 	requirements.txt
 	frontend/

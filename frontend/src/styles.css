@@ -101,6 +101,38 @@ p {
   display: grid;
   gap: 18px;
   animation: rise 0.6s ease;
+  perspective: 1200px;
+}
+
+.auth-brand {
+  display: grid;
+  gap: 4px;
+  padding: 10px 14px;
+  border: 1px solid rgba(129, 197, 243, 0.24);
+  border-radius: 14px;
+  background: linear-gradient(120deg, rgba(11, 27, 48, 0.72), rgba(13, 41, 60, 0.5));
+}
+
+.brand-kicker {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.brand-name {
+  margin: 0;
+  font-size: 1.55rem;
+  letter-spacing: 0.02em;
+}
+
+.auth-face {
+  display: grid;
+  gap: 16px;
+  transform-origin: center;
+  animation: authFlip 0.85s cubic-bezier(0.22, 0.61, 0.36, 1);
+  backface-visibility: hidden;
 }
 
 .auth-tabs {
@@ -313,6 +345,17 @@ input:focus {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes authFlip {
+  0% {
+    opacity: 0;
+    transform: rotateY(-88deg) translateY(10px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateY(0deg) translateY(0) scale(1);
   }
 }
 

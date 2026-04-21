@@ -42,6 +42,11 @@ export default function AuthPanel({ onAuthSuccess }) {
 
   return (
     <section className="auth-shell">
+      <div className="auth-brand" aria-label="App name">
+        <p className="brand-kicker">Welcome to</p>
+        <h2 className="brand-name">StudyBuddy</h2>
+      </div>
+
       <div className="auth-tabs">
         <button
           type="button"
@@ -59,71 +64,73 @@ export default function AuthPanel({ onAuthSuccess }) {
         </button>
       </div>
 
-      <h1>{heading}</h1>
-      <p className="subtitle">
-        Your AI study companion for concepts, problem-solving, and exam prep.
-      </p>
+      <div key={mode} className="auth-face">
+        <h1>{heading}</h1>
+        <p className="subtitle">
+          Your AI study companion for concepts, problem-solving, and exam prep.
+        </p>
 
-      <form onSubmit={handleSubmit} className="auth-form">
-        {mode === "signup" && (
+        <form onSubmit={handleSubmit} className="auth-form">
+          {mode === "signup" && (
+            <label>
+              Username
+              <input
+                type="text"
+                required
+                minLength={3}
+                value={signupForm.username}
+                onChange={(event) =>
+                  setSignupForm((prev) => ({ ...prev, username: event.target.value }))
+                }
+                placeholder="Choose a unique username"
+              />
+            </label>
+          )}
+
           <label>
-            Username
+            Email
             <input
-              type="text"
+              type="email"
               required
-              minLength={3}
-              value={signupForm.username}
-              onChange={(event) =>
-                setSignupForm((prev) => ({ ...prev, username: event.target.value }))
-              }
-              placeholder="Choose a unique username"
+              value={mode === "login" ? loginForm.email : signupForm.email}
+              onChange={(event) => {
+                const value = event.target.value;
+                if (mode === "login") {
+                  setLoginForm((prev) => ({ ...prev, email: value }));
+                } else {
+                  setSignupForm((prev) => ({ ...prev, email: value }));
+                }
+              }}
+              placeholder="student@example.com"
             />
           </label>
-        )}
 
-        <label>
-          Email
-          <input
-            type="email"
-            required
-            value={mode === "login" ? loginForm.email : signupForm.email}
-            onChange={(event) => {
-              const value = event.target.value;
-              if (mode === "login") {
-                setLoginForm((prev) => ({ ...prev, email: value }));
-              } else {
-                setSignupForm((prev) => ({ ...prev, email: value }));
-              }
-            }}
-            placeholder="student@example.com"
-          />
-        </label>
+          <label>
+            Password
+            <input
+              type="password"
+              required
+              minLength={6}
+              value={mode === "login" ? loginForm.password : signupForm.password}
+              onChange={(event) => {
+                const value = event.target.value;
+                if (mode === "login") {
+                  setLoginForm((prev) => ({ ...prev, password: value }));
+                } else {
+                  setSignupForm((prev) => ({ ...prev, password: value }));
+                }
+              }}
+              placeholder="At least 6 characters"
+            />
+          </label>
 
-        <label>
-          Password
-          <input
-            type="password"
-            required
-            minLength={6}
-            value={mode === "login" ? loginForm.password : signupForm.password}
-            onChange={(event) => {
-              const value = event.target.value;
-              if (mode === "login") {
-                setLoginForm((prev) => ({ ...prev, password: value }));
-              } else {
-                setSignupForm((prev) => ({ ...prev, password: value }));
-              }
-            }}
-            placeholder="At least 6 characters"
-          />
-        </label>
+          {error && <p className="form-error">{error}</p>}
 
-        {error && <p className="form-error">{error}</p>}
-
-        <button type="submit" className="action-btn" disabled={loading}>
-          {loading ? "Please wait..." : mode === "login" ? "Enter Lab" : "Create Account"}
-        </button>
-      </form>
+          <button type="submit" className="action-btn" disabled={loading}>
+            {loading ? "Please wait..." : mode === "login" ? "Enter Lab" : "Create Account"}
+          </button>
+        </form>
+      </div>
 
       <div className="auth-footnote">
         <span>Physics</span>
