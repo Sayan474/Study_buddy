@@ -36,6 +36,7 @@ def get_allowed_origins() -> list[str]:
         "http://127.0.0.1:5173",
         "http://localhost:4173",
         "http://127.0.0.1:4173",
+        "https://study-buddy-frontend-n3gw.onrender.com"
     ]
     # Keep order stable while removing duplicates.
     return list(dict.fromkeys(default_origins + env_origins))
